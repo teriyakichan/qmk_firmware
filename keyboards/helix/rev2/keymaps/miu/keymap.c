@@ -29,16 +29,12 @@ extern uint8_t is_master;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
 #define _ADJUST 16
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
   LOWER,
   RAISE,
   ADJUST,
@@ -72,57 +68,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |   [  |   ]  |   N  |   M  |  ,<  |  .>  |  /?  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Ctrl | Lower|  GUI |  Alt | MHEN |  Esc | Space| Space| Lower| Kana | Left | Down |  Up  | Right|
+   * | Ctrl |  Esc |  GUI |  Alt | Lower| Space| MHEN | Kana | Enter| Raise| Left | Down |  Up  | Right|
    * `-------------------------------------------------------------------------------------------------'
    */
   [_QWERTY] = KEYMAP( \
       JP_ZHTG, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
       KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_QUOT, \
       KC_HOME, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_END, \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    JP_LBRC, JP_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, \
-      KC_LCTL, LOWER,   KC_LGUI, KC_LALT, JP_MHEN, KC_ESC,  KC_SPC,  KC_SPC,  RAISE,   JP_KANA, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
-      ),
-
-  /* Colemak
-   * ,-----------------------------------------.             ,-----------------------------------------.
-   * |   `  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | Del  |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Tab  |   Q  |   W  |   F  |   P  |   G  |             |   J  |   L  |   U  |   Y  |   ;  | Bksp |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Ctrl |   A  |   R  |   S  |   T  |   D  |             |   H  |   N  |   E  |   I  |   O  |  '   |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Shift|   Z  |   X  |   C  |   V  |   B  |   [  |   ]  |   K  |   M  |   ,  |   .  |   /  |Enter |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Adjust| Esc  | Alt  | GUI  | EISU |Lower |Space |Space |Raise | KANA | Left | Down |  Up  |Right |
-   * `-------------------------------------------------------------------------------------------------'
-   */
-  [_COLEMAK] = KEYMAP( \
-      KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
-      KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC, \
-      KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LBRC, KC_RBRC, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
-      ADJUST,  KC_ESC,  KC_LALT, KC_LGUI, EISU,    LOWER,   KC_SPC,  KC_SPC,  RAISE,   KANA,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
-      ),
-
-  /* Dvorak
-   * ,-----------------------------------------.             ,-----------------------------------------.
-   * |   `  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | Bksp |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Tab  |   '  |   ,  |   .  |   P  |   Y  |             |   F  |   G  |   C  |   R  |   L  | Del  |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Ctrl |   A  |   O  |   E  |   U  |   I  |             |   D  |   H  |   T  |   N  |   S  |  /   |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Shift|   ;  |   Q  |   J  |   K  |   X  |   [  |   ]  |   B  |   M  |   W  |   V  |   Z  |Enter |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Adjust| Esc  | Alt  | GUI  | EISU |Lower |Space |Space |Raise | KANA | Left | Down |  Up  |Right |
-   * `-------------------------------------------------------------------------------------------------'
-   */
-  [_DVORAK] = KEYMAP( \
-      KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-      KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_DEL, \
-      KC_LCTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH, \
-      KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_LBRC, KC_RBRC, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT , \
-      ADJUST,  KC_ESC,  KC_LALT, KC_LGUI, EISU,    LOWER,   KC_SPC,  KC_SPC,  RAISE,   KANA,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    JP_LBRC, JP_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
+      KC_LCTL, KC_ESC,  KC_LGUI, KC_LALT, LOWER,   KC_SPC,  JP_MHEN, JP_KANA, KC_ENT,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
       ),
 
   /* Lower
@@ -130,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |RGB ON| HUE+ | SAT+ | VAL+ |      |      |             |      |      |  -=  |  ^~  |  \|  |  Del |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * | MODE | HUE- | SAT- | VAL- |      |      |             |      |      |      |  @`  |  [{  |      |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * |------+------+------+------+------+------+             +------+------+------+------+------+------|
    * |      |      |      |      |      |      |             |      |      |      |  :*  |  ]}  |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |      |      |      |      |      |  \_  |      |
@@ -139,32 +93,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_LOWER] = KEYMAP( \
-      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,                   _______, _______, KC_MINS, JP_CIRC, JP_YEN,  KC_DEL, \
       RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,                   _______, _______, _______, JP_AT,   JP_LBRC, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, JP_RBRC, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, JP_BSLS, _______ \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, JP_RBRC, _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, JP_BSLS, _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
       ),
 
   /* Raise
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
+   * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |             |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |      |      |      |      |      |      |             |      |      |      |      |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | PgUp |      |      |      |      |      |             |      |      |      |      |      | PgDn |
+   * | PgUp |      |      |      |      |      |             | Left | Down |  Up  | Right|      | PgDn |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
+   * |      |      |      |      |      |      |      |      | Prev | Play | Next | Mute | VolDn| VolUp|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_RAISE] = KEYMAP( \
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-      KC_PGUP, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_PGDN, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______,  _______, _______, \
+      KC_PGUP, _______, _______, _______, _______, _______,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, KC_PGDN, \
+      _______, _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD, KC_VOLU, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______ \
       ),
 
   /* Adjust (Lower + Raise)
@@ -183,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] =  KEYMAP( \
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
       _______, RESET,   RGBRST,  _______, _______, _______,                   _______, _______, _______, _______, _______, KC_DEL, \
-      _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,                   AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
+      _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,                   AG_SWAP, QWERTY,  _______, _______,  _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD \
       )
@@ -222,30 +176,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Adjust| Esc  | Alt  | GUI  | EISU |Lower |Space |Space |Raise | KANA | Left | Down |  Up  |Right |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_COLEMAK] = KEYMAP( \
-      KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC, \
-      KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
-      ADJUST,  KC_ESC,  KC_LALT, KC_LGUI, EISU,    LOWER,   KC_SPC,  KC_SPC,  RAISE,   KANA,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
-      ),
-
-  /* Dvorak
-   * ,-----------------------------------------.             ,-----------------------------------------.
-   * | Tab  |   '  |   ,  |   .  |   P  |   Y  |             |   F  |   G  |   C  |   R  |   L  | Del  |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Ctrl |   A  |   O  |   E  |   U  |   I  |             |   D  |   H  |   T  |   N  |   S  |  /   |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Shift|   ;  |   Q  |   J  |   K  |   X  |             |   B  |   M  |   W  |   V  |   Z  |Enter |
-   * |------+------+------+------+------+------+-------------+------+------+------+------+------+------|
-   * |Adjust| Esc  | Alt  | GUI  | EISU |Lower |Space |Space |Raise | KANA | Left | Down |  Up  |Right |
-   * `-------------------------------------------------------------------------------------------------'
-   */
-  [_DVORAK] = KEYMAP( \
-      KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_DEL, \
-      KC_LCTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH, \
-      KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                      KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT , \
-      ADJUST,  KC_ESC,  KC_LALT, KC_LGUI, EISU,    LOWER,   KC_SPC,  KC_SPC,  RAISE,   KANA,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
-      ),
 
   /* Lower
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -296,7 +226,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_ADJUST] =  KEYMAP( \
       _______, RESET,   _______, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_DEL, \
-      _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,                   AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
+      _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,                   AG_SWAP, QWERTY,  _______, _______,  _______, _______, \
       _______, _______, _______, _______, _______, _______,                   _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD \
       )
@@ -310,8 +240,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef AUDIO_ENABLE
 
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
@@ -346,24 +274,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_SONG(tone_qwerty);
         #endif
         persistent_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_colemak);
-        #endif
-        persistent_default_layer_set(1UL<<_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_dvorak);
-        #endif
-        persistent_default_layer_set(1UL<<_DVORAK);
       }
       return false;
       break;
